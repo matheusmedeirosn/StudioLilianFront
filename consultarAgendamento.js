@@ -147,9 +147,6 @@ function enviarAtualizacaoAgendamento() {
     }
 }
 
-}
-
-
 
 
 
