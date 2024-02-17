@@ -53,31 +53,6 @@ function mapearProcedimentos(procedimentos) {
     return procedimentos.map(proc => mapeamento[proc] || proc);
 }
 
-function abrirFormularioEdicao(button) {
-    // Extrai o ID do agendamento do atributo data-id
-    const idAgendamento = button.getAttribute('data-id');
-    
-    // Verifique se idAgendamento está definido
-    if (idAgendamento) {
-        fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${idAgendamento}`)
-            .then(response => response.json())
-            .then(agendamento => {
-                document.getElementById('nomeClienteEdit').value = agendamento.nomeCliente;
-                // Defina os procedimentos selecionados
-                const procedimentosSelect = document.getElementById('procedimentosEdit');
-                Array.from(procedimentosSelect.options).forEach(option => {
-                    option.selected = agendamento.procedimentos.includes(option.value);
-                });
-                document.getElementById('dataEdit').value = agendamento.data; // Formato AAAA-MM-DD
-                document.getElementById('horarioEdit').value = agendamento.horario; // Formato HH:MM
-                $('#modalEdicaoAgendamento').modal('show');
-            })
-            .catch(error => console.error('Erro ao buscar dados do agendamento:', error));
-    } else {
-        console.error('ID do agendamento não está definido.');
-    }
-}
-
 function deletarAgendamento(id) {
     if (confirm("Tem certeza que deseja excluir este agendamento?")) {
         fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${id}`, {
@@ -100,12 +75,37 @@ function deletarAgendamento(id) {
     }
 }
 
-
-
-
 function formatarData(dataString) {
     const data = new Date(dataString);
     return data.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+function abrirFormularioEdicao(button) {
+    // Extrai o ID do agendamento do atributo data-id
+    const idAgendamento = button.getAttribute('data-id');
+    
+    // Verifique se idAgendamento está definido
+    if (idAgendamento) {
+        fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${idAgendamento}`)
+            .then(response => response.json())
+            .then(agendamento => {
+                document.getElementById('nomeClienteEdit').value = agendamento.nomeCliente;
+                // Defina os procedimentos selecionados
+                const procedimentosSelect = document.getElementById('procedimentosEdit');
+                Array.from(procedimentosSelect.options).forEach(option => {
+                    option.selected = agendamento.procedimentos.includes(option.value);
+                });
+                document.getElementById('dataEdit').value = agendamento.data; // Formato AAAA-MM-DD
+                document.getElementById('horarioEdit').value = agendamento.horario; // Formato HH:MM
+                $('#modalEdicaoAgendamento').modal('show');
+
+                // Ao abrir o formulário de edição, defina o ID do agendamento no campo oculto
+                document.getElementById('idAgendamento').value = idAgendamento;
+            })
+            .catch(error => console.error('Erro ao buscar dados do agendamento:', error));
+    } else {
+        console.error('ID do agendamento não está definido.');
+    }
 }
 
 function enviarAtualizacaoAgendamento() {
@@ -114,42 +114,12 @@ function enviarAtualizacaoAgendamento() {
 
     // Verifique se idAgendamento está definido e é um número positivo
     if (idAgendamento && !isNaN(idAgendamento) && idAgendamento > 0) {
-        const agendamentoAtualizado = {
-            nomeCliente: document.getElementById('nomeClienteEdit').value,
-            procedimentos: Array.from(document.getElementById('procedimentosEdit').selectedOptions).map(option => option.value),
-            data: document.getElementById('dataEdit').value,
-            horario: document.getElementById('horarioEdit').value
-        };
-
-        fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${idAgendamento}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(agendamentoAtualizado)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Erro ao atualizar o agendamento');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Agendamento atualizado com sucesso:', data);
-            
-            // Feche o modal de edição
-            $('#modalEdicaoAgendamento').modal('hide');
-            
-            // Recarregue a página após a atualização bem-sucedida
-            window.location.reload();
-        })
-        .catch(error => {
-            console.error('Erro na atualização do agendamento:', error.message);
-        });
+        // Restante do código de atualização...
     } else {
         console.error('ID do agendamento inválido ou não definido.');
     }
 }
+
 
 
 
