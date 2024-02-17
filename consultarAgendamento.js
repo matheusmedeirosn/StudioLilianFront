@@ -85,14 +85,15 @@ function deletarAgendamento(id) {
         })
         .then(() => {
             console.log('Agendamento excluído com sucesso');
-            // Recarregue a lista de agendamentos após a exclusão
-            carregarAgendamentos();
+            // Recarregue a página após a exclusão
+            window.location.reload();
         })
         .catch(error => {
             console.error('Erro ao excluir o agendamento:', error);
         });
     }
 }
+
 
 
 
