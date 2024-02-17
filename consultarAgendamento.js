@@ -72,6 +72,27 @@ function abrirFormularioEdicao(button) {
     }
 }
 
+function deletarAgendamento(id) {
+    if (confirm("Tem certeza que deseja excluir este agendamento?")) {
+        fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${id}`, {
+            method: 'DELETE'
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao excluir o agendamento');
+            }
+            return response;
+        })
+        .then(() => {
+            console.log('Agendamento excluído com sucesso');
+            // Recarregue a lista de agendamentos após a exclusão
+            carregarAgendamentos();
+        })
+        .catch(error => {
+            console.error('Erro ao excluir o agendamento:', error);
+        });
+    }
+}
 
 
 
