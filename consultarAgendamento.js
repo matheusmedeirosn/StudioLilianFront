@@ -147,6 +147,30 @@ function enviarAtualizacaoAgendamento() {
     }
 }
 
+function filtrarPorMes(mesSelecionado) {
+    // Obtém todos os agendamentos da tabela
+    const agendamentos = document.querySelectorAll('#agendamentos-body tr');
+
+    // Verifica se um mês foi selecionado
+    if (mesSelecionado) {
+        // Itera sobre os agendamentos e exibe apenas aqueles do mês selecionado
+        agendamentos.forEach(agendamento => {
+            const dataAgendamento = agendamento.querySelector('td:nth-child(4)').textContent;
+            const mesAgendamento = dataAgendamento.split('/')[1]; // Assume que a data está no formato DD/MM/AAAA
+
+            if (mesAgendamento !== mesSelecionado) {
+                agendamento.style.display = 'none'; // Oculta o agendamento se não for do mês selecionado
+            } else {
+                agendamento.style.display = ''; // Exibe o agendamento se for do mês selecionado
+            }
+        });
+    } else {
+        // Se nenhum mês for selecionado, exibe todos os agendamentos
+        agendamentos.forEach(agendamento => {
+            agendamento.style.display = '';
+        });
+    }
+}
 
 
 
