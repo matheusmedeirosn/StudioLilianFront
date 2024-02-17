@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     carregarAgendamentos();
 });
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('btnSalvarEdicao').addEventListener('click', function() {
+        enviarAtualizacaoAgendamento();
+    });
+});
+
 
 function carregarAgendamentos() {
     fetch('https://studiolilian-production.up.railway.app/api/agendamentos')
