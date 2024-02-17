@@ -5,6 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Studio Lilian Albert</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        /* Adicione estilos personalizados para os inputs de data e hora */
+        input[type="date"],
+        input[type="time"] {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+        /* Estilo personalizado para o botão Agendar */
+        .btn-agendar {
+            color: #fff; /* Define a cor do texto como branco */
+            background-color: #343a40; /* Define a cor de fundo como cinza escuro */
+            border-color: #343a40; /* Define a cor da borda como cinza escuro */
+        }
+        .btn-agendar:hover {
+            color: #fff; /* Define a cor do texto ao passar o mouse como branco */
+            background-color: #23272b; /* Define a cor de fundo ao passar o mouse como cinza mais escuro */
+            border-color: #1d2124; /* Define a cor da borda ao passar o mouse como cinza ainda mais escuro */
+        }
+    </style>
 </head>
 <body>
 
@@ -41,9 +68,19 @@
                     <div class="form-group">
                         <label for="procedimentos">Procedimentos</label>
                         <select multiple class="form-control" id="procedimentos" required>
+                            <!-- Adicionando as opções dos procedimentos com os valores do enum -->
                             <option value="designSobrancelhas">Design Sobrancelhas</option>
                             <option value="designHenna">Design Henna</option>
-                            <!-- Adicione mais opções conforme necessário -->
+                            <option value="designTintura">Design Tintura</option>
+                            <option value="browLamination">Brow Lamination</option>
+                            <option value="lashLifting">Lash Lifting</option>
+                            <option value="micropigmentacao">Micropigmentação</option>
+                            <option value="hidraGloss">Hidra Gloss</option>
+                            <option value="limpezaDePele">Limpeza de Pele</option>
+                            <option value="peelingQuimico">Peeling Químico</option>
+                            <option value="depilacaoBuco">Depilação Buço</option>
+                            <option value="depilacaoQueixo">Depilação Queixo</option>
+                            <option value="depilacaoRosto">Depilação Rosto</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -54,7 +91,8 @@
                         <label for="horario">Horário</label>
                         <input type="time" class="form-control" id="horario" required>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block bg-dark">Agendar</button>
+                    <!-- Adicione a classe btn-agendar para aplicar o estilo personalizado -->
+                    <button type="submit" class="btn btn-outline-primary btn-block btn-agendar">Agendar</button>
                 </form>
             </div>
         </div>
