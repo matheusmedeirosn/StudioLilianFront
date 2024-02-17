@@ -6,31 +6,122 @@
     <title>Studio Lilian Albert</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        .navbar {
+            background-color: #343a40;
+        }
+        .navbar-brand, .nav-link {
+            color: #fff;
+        }
+        .navbar-brand:hover, .nav-link:hover {
+            color: #ccc;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 18px;
+            color: #343a40;
+        }
+        #selectMes {
+            width: 200px;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            background-color: #fff;
+            color: #495057;
+            margin-top: 10px;
+        }
+        h1 {
+            color: #343a40;
+            text-align: center;
+            margin-top: 40px;
+            font-weight: bold;
+        }
+        .table {
+            background-color: #fff;
+            border-collapse: collapse;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .table th, .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .table thead th {
+            background-color: #343a40;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .table tbody td {
+            background-color: #f8f9fa;
+            font-size: 14px;
+        }
+        .modal-content {
+            background-color: #fff;
+        }
+        .modal-header {
+            border-bottom: none;
+            background-color: #343a40;
+            color: #fff;
+        }
+        .modal-title {
+            color: #fff;
+            font-weight: bold;
+        }
+        .modal-footer {
+            border-top: none;
+            background-color: #343a40;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #545b62;
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Studio Lílian Albert</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Studio Lílian Albert</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.html">Agendar</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="consultarAgendamento.html">Consultar Agendamentos</a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="index.html">Agendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="consultarAgendamento.html">Consultar Agendamentos</a>
+                </li>
             </ul>
-          </div>
         </div>
-      </nav>
+    </div>
+</nav>
 
-      <div class="form-group">
-        <label for="selectMes">Filtrar por mês:</label>
-        <select id="selectMes" class="form-control" onchange="filtrarPorMes(this.value)">
+<div class="container">
+    <div class="form-group text-center"> <!-- Adicione a classe text-center para centralizar -->
+        <label for="selectMes" style="display: block;">Filtrar por mês:</label>
+        <select id="selectMes" class="form-control mx-auto" onchange="filtrarPorMes(this.value)">
             <option value="">Selecione o mês</option>
             <option value="01">Janeiro</option>
             <option value="02">Fevereiro</option>
@@ -46,29 +137,33 @@
             <option value="12">Dezembro</option>
         </select>
     </div>
-    
+</div>
 
-    <div class="container">
-        <h1 class="text-center my-4">Agendamentos</h1>
+
+    <h1>Agendamentos</h1>
+
+    <div class="table-responsive">
         <table class="table">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome do Cliente</th>
-                    <th>Procedimentos</th>
-                    <th>Data</th>
-                    <th>Horário</th>
-                    <th>Ações</th>
-                </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nome do Cliente</th>
+                <th>Procedimentos</th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th>Ações</th>
+            </tr>
             </thead>
             <tbody id="agendamentos-body">
-                <!-- Os agendamentos serão inseridos aqui pelo JavaScript -->
+            <!-- Os agendamentos serão inseridos aqui pelo JavaScript -->
             </tbody>
         </table>
     </div>
+</div>
 
-    <!-- Modal de Edição de Agendamento -->
-<div class="modal fade" id="modalEdicaoAgendamento" tabindex="-1" aria-labelledby="modalEdicaoAgendamentoLabel" aria-hidden="true">
+<!-- Modal de Edição de Agendamento -->
+<div class="modal fade" id="modalEdicaoAgendamento" tabindex="-1" aria-labelledby="modalEdicaoAgendamentoLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -108,15 +203,14 @@
                 <button id="btnSalvarEdicao" class="btn btn-secondary">
                     <i class="fas fa-save"></i> Salvar
                 </button>
-            </div>            
+            </div>
         </div>
     </div>
 </div>
 
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.5/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="consultarAgendamento.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.5/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="consultarAgendamento.js"></script>
 </body>
 </html>
