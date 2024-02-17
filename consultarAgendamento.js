@@ -136,8 +136,12 @@ function enviarAtualizacaoAgendamento() {
         })
         .then(data => {
             console.log('Agendamento atualizado com sucesso:', data);
-            // Atualize a tabela de agendamentos após a atualização bem-sucedida
-            carregarAgendamentos();
+            
+            // Feche o modal de edição
+            $('#modalEdicaoAgendamento').modal('hide');
+            
+            // Recarregue a página após a atualização bem-sucedida
+            window.location.reload();
         })
         .catch(error => {
             console.error('Erro na atualização do agendamento:', error.message);
@@ -146,6 +150,7 @@ function enviarAtualizacaoAgendamento() {
         console.error('ID do agendamento inválido ou não definido.');
     }
 }
+
 
 
 
