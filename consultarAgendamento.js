@@ -1,11 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     carregarAgendamentos();
-});
-document.addEventListener('DOMContentLoaded', function() {
+
+    // Adicione um ouvinte de eventos para o botão de salvar
     document.getElementById('btnSalvarEdicao').addEventListener('click', function() {
         enviarAtualizacaoAgendamento();
     });
 });
+
 
 
 function carregarAgendamentos() {
@@ -114,10 +115,38 @@ function enviarAtualizacaoAgendamento() {
 
     // Verifique se idAgendamento está definido e é um número positivo
     if (idAgendamento && !isNaN(idAgendamento) && idAgendamento > 0) {
-        // Restante do código de atualização...
+        const agendamentoAtualizado = {
+            nomeCliente: document.getElementById('nomeClienteEdit').value,
+            procedimentos: Array.from(document.getElementById('procedimentosEdit').selectedOptions).map(option => option.value),
+            data: document.getElementById('dataEdit').value,
+            horario: document.getElementById('horarioEdit').value
+        };
+
+        fetch(`https://studiolilian-production.up.railway.app/api/agendamentos/${idAgendamento}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(agendamentoAtualizado)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao atualizar o agendamento');
+            }
+            // Feche o modal de edição
+            $('#modalEdicaoAgendamento').modal('hide');
+
+            // Recarregue a página após a atualização bem-sucedida
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Erro na atualização do agendamento:', error.message);
+        });
     } else {
         console.error('ID do agendamento inválido ou não definido.');
     }
+}
+
 }
 
 
