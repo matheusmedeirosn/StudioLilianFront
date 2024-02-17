@@ -156,7 +156,7 @@ function filtrarPorMes(mesSelecionado) {
         // Itera sobre os agendamentos e exibe apenas aqueles do mês selecionado
         agendamentos.forEach(agendamento => {
             const dataAgendamento = agendamento.querySelector('td:nth-child(4)').textContent;
-            const mesAgendamento = dataAgendamento.split('/')[1]; // Assume que a data está no formato DD/MM/AAAA
+            const mesAgendamento = dataAgendamento.split('-')[1]; // Extrai o mês da data (assumindo formato YYYY-MM-DD)
 
             if (mesAgendamento !== mesSelecionado) {
                 agendamento.style.display = 'none'; // Oculta o agendamento se não for do mês selecionado
@@ -165,12 +165,14 @@ function filtrarPorMes(mesSelecionado) {
             }
         });
     } else {
-        // Se nenhum mês for selecionado, exibe todos os agendamentos
+        // Se nenhum mês for selecionado, exibe todos os agendamentos novamente
         agendamentos.forEach(agendamento => {
             agendamento.style.display = '';
         });
     }
 }
+
+
 
 
 
