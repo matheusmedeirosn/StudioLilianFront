@@ -6,6 +6,7 @@
     <title>Studio Lilian Albert</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> <!-- Adicione esta linha para usar os ícones do Font Awesome -->
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -119,7 +120,7 @@
 </nav>
 
 <div class="container">
-    <div class="form-group text-center"> <!-- Adicione a classe text-center para centralizar -->
+    <div class="form-group text-center">
         <label for="selectMes" style="display: block;">Filtrar por mês:</label>
         <select id="selectMes" class="form-control mx-auto" onchange="filtrarPorMes(this.value)">
             <option value="">Selecione o mês</option>
@@ -140,8 +141,9 @@
 </div>
 
 
-    <h1>Agendamentos</h1>
+<h1>Agendamentos</h1>
 
+<div class="container">
     <div class="table-responsive">
         <table class="table">
             <thead>
