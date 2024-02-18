@@ -31,13 +31,12 @@ function enviarAgendamento() {
     .then(response => {
         if (!response.ok) {
             throw new Error('Falha ao realizar agendamento');
-        }
+        }  
         return response.json();
     })
     .then(data => {
         console.log('Agendamento realizado com sucesso:', data);
-        // Exibir modal de sucesso após o agendamento bem-sucedido
-        $('#modalSucesso').modal('show');
+        exibirModalSucesso();
         carregarAgendamentos(); // Recarrega a lista de agendamentos
     })
     .catch((error) => {
@@ -75,3 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dataAtual = new Date().toISOString().split('T')[0];
     dataInput.setAttribute('min', dataAtual);
 });
+
+function exibirModalSucesso() {
+    $('#modalSucesso').modal('show');
+}
