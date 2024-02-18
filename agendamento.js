@@ -36,7 +36,7 @@ function enviarAgendamento() {
     })
     .then(data => {
         console.log('Agendamento realizado com sucesso:', data);
-        exibirModalSucesso();
+        alert('agendamento realizado com sucesso')
         carregarAgendamentos(); // Recarrega a lista de agendamentos
     })
     .catch((error) => {
@@ -74,7 +74,3 @@ document.addEventListener('DOMContentLoaded', function() {
     const dataAtual = new Date().toISOString().split('T')[0];
     dataInput.setAttribute('min', dataAtual);
 });
-
-function exibirModalSucesso() {
-    $('#modalSucesso').modal('show');
-}
