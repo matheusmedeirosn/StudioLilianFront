@@ -36,6 +36,8 @@ function enviarAgendamento() {
     })
     .then(data => {
         console.log('Agendamento realizado com sucesso:', data);
+        // Exibir modal de sucesso após o agendamento bem-sucedido
+        $('#modalSucesso').modal('show');
         carregarAgendamentos(); // Recarrega a lista de agendamentos
     })
     .catch((error) => {
