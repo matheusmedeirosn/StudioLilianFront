@@ -76,9 +76,16 @@ function deletarAgendamento(id) {
 }
 
 function formatarData(dataString) {
+    // Parse da string para o objeto Date
     const data = new Date(dataString);
+    
+    // Ajuste para o fuso horário do Brasil (UTC-3)
+    data.setMinutes(data.getMinutes() - data.getTimezoneOffset());
+    
+    // Formata a data
     return data.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
 
 function abrirFormularioEdicao(button) {
     // Extrai o ID do agendamento do atributo data-id
