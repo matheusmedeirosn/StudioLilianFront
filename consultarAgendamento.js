@@ -5,11 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnSalvarEdicao').addEventListener('click', function() {
         enviarAtualizacaoAgendamento();
     });
-
-    // Adiciona um ouvinte de eventos para o botão de "Ver Atendimentos do Dia"
-    document.getElementById('btnAtendimentosDia').addEventListener('click', function() {
-        buscarAtendimentosDoDia();
-    });
 });
 
 function carregarAgendamentos() {
@@ -80,11 +75,12 @@ function formatarData(dataString) {
     const data = new Date(dataString);
     
     // Ajuste para o fuso horário do Brasil (UTC-3)
-    data.setMinutes(data.getMinutes() - data.getTimezoneOffset());
+    data.setMinutes(data.getMinutes() - data.getTimezoneOffset() - 180);
     
     // Formata a data
     return data.toLocaleDateString('pt-BR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
+
 
 
 function abrirFormularioEdicao(button) {
