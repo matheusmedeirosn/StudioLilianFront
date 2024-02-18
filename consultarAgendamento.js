@@ -99,9 +99,6 @@ function abrirFormularioEdicao(button) {
                 document.getElementById('dataEdit').value = agendamento.data; // Formato AAAA-MM-DD
                 document.getElementById('horarioEdit').value = agendamento.horario; // Formato HH:MM
 
-                // Aplicar máscaras aos procedimentos selecionados
-                $('#procedimentosEdit').selectpicker('refresh');
-
                 $('#modalEdicaoAgendamento').modal('show');
 
                 // Ao abrir o formulário de edição, defina o ID do agendamento no campo oculto
