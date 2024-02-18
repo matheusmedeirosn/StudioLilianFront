@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('btnSalvarEdicao').addEventListener('click', function() {
         enviarAtualizacaoAgendamento();
     });
+
+    // Adiciona um ouvinte de eventos para o botão de "Ver Atendimentos do Dia"
+    document.getElementById('btnAtendimentosDia').addEventListener('click', function() {
+        buscarAtendimentosDoDia();
+    });
 });
-
-
 
 function carregarAgendamentos() {
     fetch('https://studiolilian-production.up.railway.app/api/agendamentos')
@@ -30,12 +33,12 @@ function carregarAgendamentos() {
                     <td>${formatarData(agendamento.data)}</td>
                     <td>${agendamento.horario}</td>
                     <td>
-                    <button data-id="${agendamento.id}" onclick="abrirFormularioEdicao(this)" class="btn btn-sm btn-primary rounded-circle bg-dark">
-                        <i class="fas fa-edit"></i>
-                    </button>
-                    <button onclick="deletarAgendamento('${agendamento.id}')" class="btn btn-sm btn-danger rounded-circle bg-dark">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
+                        <button data-id="${agendamento.id}" onclick="abrirFormularioEdicao(this)" class="btn btn-sm btn-primary rounded-circle bg-dark">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button onclick="deletarAgendamento('${agendamento.id}')" class="btn btn-sm btn-danger rounded-circle bg-dark">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
                     </td>
                 `;
                 agendamentosBody.appendChild(tr);
@@ -63,10 +66,6 @@ function deletarAgendamento(id) {
             if (!response.ok) {
                 throw new Error('Erro ao excluir o agendamento');
             }
-            return response;
-        })
-        .then(() => {
-            console.log('Agendamento excluído com sucesso');
             // Recarregue a página após a exclusão
             window.location.reload();
         })
@@ -113,7 +112,6 @@ function abrirFormularioEdicao(button) {
     }
 }
 
-
 function enviarAtualizacaoAgendamento() {
     // Obtenha o ID do agendamento do campo de entrada
     const idAgendamento = document.getElementById('idAgendamento').value;
@@ -152,27 +150,24 @@ function enviarAtualizacaoAgendamento() {
     }
 }
 
-function filtrarPorMes(mesSelecionado) {
-    // Obtém todos os agendamentos da tabela
-    const agendamentos = document.querySelectorAll('#agendamentos-body tr');
+function buscarAtendimentosDoDia() {
+    // Obtém a data atual e adiciona um dia para considerar o fuso horário do servidor
+    const dataAtual = new Date();
+    dataAtual.setDate(dataAtual.getDate() + 1); // Adiciona um dia
 
-    // Verifica se um mês foi selecionado
-    if (mesSelecionado) {
-        // Itera sobre os agendamentos e exibe apenas aqueles do mês selecionado
-        agendamentos.forEach(agendamento => {
-            const dataAgendamento = agendamento.querySelector('td:nth-child(4)').textContent;
-            const mesAgendamento = new Date(dataAgendamento).getMonth() + 1; // Extrai o mês da data e ajusta para começar de 1
+    const dataFormatada = dataAtual.toISOString().split('T')[0]; // Obtém a data no formato AAAA-MM-DD
 
-            if (mesAgendamento !== parseInt(mesSelecionado)) {
-                agendamento.style.display = 'none'; // Oculta o agendamento se não for do mês selecionado
-            } else {
-                agendamento.style.display = ''; // Exibe o agendamento se for do mês selecionado
+    fetch(`https://studiolilian-production.up.railway.app/api/agendamentos?data=${dataFormatada}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Falha ao carregar os agendamentos do dia');
             }
-        });
-    } else {
-        // Se nenhum mês for selecionado, exibe todos os agendamentos novamente
-        agendamentos.forEach(agendamento => {
-            agendamento.style.display = '';
-        });
-    }
+            return response.json();
+        })
+        .then(agendamentos => {
+            // Aqui você pode exibir os agendamentos do dia em um modal ou como preferir
+            console.log('Agendamentos do dia', agendamentos);
+            alert('Agendamentos do dia: ' + JSON.stringify(agendamentos));
+        })
+        .catch(error => console.error('Erro ao carregar os agendamentos do dia:', error));
 }
